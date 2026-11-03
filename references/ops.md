@@ -17,6 +17,11 @@
 
 - **Superfície mínima** (idempotentes, com `--help` e saída machine-readable): `bootstrap` (cria `/<app>/` e clona os repos) · `install`/`up` · `redeploy` (destrutivo, do seed §2) · `update` · `config` (do `/<app>/.env`) · `migrate` (reversível) · `health`/`doctor` · `rollback` · `logs`/`troubleshoot` · `reset` (destrói dados — gated, dev/hml) · `test` (ver a `schematize-qa` (test kit, `references/execucao.md` secao 2)).
 
+## 8. Pisos 22–24 — recorte zig
+
+- **Canal único = git (22/23); o ops é o gate da IA (24).** Detalhe na base (`schematize-engineering` → `references/ops.md` §1, §4, §8): sem `scp`/`rsync`/`tar | ssh`/`docker save|load`; a IA nunca muda a VPS nem escreve SQL — só operação nomeada do ops; antes de pronto, `HEAD == origin` (`scripts/check-deploy-git.sh`).
+- **Zig:** binário cross-compilado na estação (`zig build -Dtarget=…`) e enviado por `scp`/`rsync` é **VETADO**; o ops, na VPS, busca o SHA/tag do git (`build.zig.zon` com hashes e `minimum_zig_version` pinados) e builda limpo. Estático/musl não muda a regra: o que sobe é build do git, nunca upload.
+
 ## 7. Integração com o resto da casa
 
 Comando: **`/<slug>-ops`** (ex.: `/eng-ops`, `/zig-ops`) — audita/scaffolda o ops, verifica o fluxo de ambientes, o layout `/<app>/` + seed, o isolamento por usuário, a paralelização (`nproc`) e a independência.

@@ -3,11 +3,11 @@ description: schematize-zig — audita/scaffolda o <projeto>_ops (interface úni
 argument-hint: "[bootstrap | audit | install]"
 ---
 
-Governe a operação do sistema pelo **`<projeto>_ops`** (`references/ops.md`). Plan-first: **audita, mostra o plano, pede aprovação, então executa** — e **nada toca o servidor fora do ops**.
+Governe a operação do sistema pelo **`<projeto>_ops`** (`references/ops.md`). Plan-first: **audita, mostra o plano (dry-run), pede aprovação, então chama a operação NOMEADA do ops** — e **nada toca o servidor fora do ops**. A IA **nunca** executa `ssh` mutável, `systemctl`/`docker`, console da app nem escreve SQL/comando próprio na VPS (piso 24): só pede operação tipada do ops; faltou operação, implemente-a no repo do ops via git.
 
 ## 1. Fluxo de ambientes (verifique primeiro)
 Confirme que o pipeline força **dev local → teste local → GitHub → hml → prd** e que **nada vai direto pra hml/prd**:
-- Deploy só aceita **artefato com proveniência git** (commit SHA); artefato sem origem no git é recusado.
+- Deploy é **só a partir do git** (piso 23): o ops, rodando na VPS, faz `fetch` + `checkout` do **SHA/tag exato verificado**. **VETADO** `scp`/`rsync`/`tar | ssh`/`docker save|load`/`git bundle` e subir artefato montado fora do git; sem origem no git, é recusado.
 - hml/prd com filesystem **read-only** (sem edição manual); **drift detection** ligado (o ops recusa/alerta divergência com o git).
 - **VETADO editar código direto no servidor.** Achou edição manual → trate como incidente (archive), não como fluxo.
 
@@ -41,3 +41,6 @@ Rode a instalação **em paralelo de propósito** para provar independência. Se
 
 ## 5. Saída
 Grave o plano/relatório em `<projeto>_archive/` (§28): estado do fluxo de ambientes, cobertura de comandos do ops (o que falta), tempo de install e grau de paralelismo, e qualquer colisão de independência encontrada (com a correção priorizada). Confirme ao usuário: fluxo ok? ops cobre 100%? install paralela em `nproc`? independência provada?
+
+## 6. Gate de saída (pisos 22/23)
+Antes de dar por concluído: `git remote -v` presente, `git push` feito e `HEAD == origin/<branch>`; rode `bash .claude/skills/schematize-engineering/scripts/check-deploy-git.sh .` (reprova scp/rsync/tar|ssh/docker save|load em scripts, CI e docs). Local divergente do remoto = **não concluído**.
