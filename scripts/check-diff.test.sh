@@ -49,6 +49,16 @@ plant "teste pulado" web/p.ts 'it.skip("x", () => {})' 1 "teste pulado"
 plant "SQL por concatenação" svc/q.go 'db.Query("SELECT * FROM u WHERE id=" + req.ID)' 1 "SQL"
 plant "PHP no diff" legado/x.php '<?php echo 1;' 1 "PHP"
 
+echo "── VERMELHO: Zig (anti-padroes 15/16/47)"
+plant "catch unreachable" src/a.zig 'const x = f() catch unreachable;' 1 "unreachable"
+plant "orelse unreachable" src/b.zig 'const x = m.get(k) orelse unreachable;' 1 "unreachable"
+plant "catch @panic" src/c.zig 'const x = f() catch @panic("x");' 1 "@panic"
+plant "catch {} engole" src/d.zig 'f() catch {};' 1 "engole"
+plant "_ = f() descarta error union" src/e.zig '    _ = writer.flush();' 1 "error union"
+plant "@setRuntimeSafety(false)" src/f.zig '    @setRuntimeSafety(false);' 1 "VETADO"
+plant "page_allocator direto" src/g.zig 'const a = std.heap.page_allocator;' 1 "alocador"
+plant "Zig limpo com try passa" src/h.zig 'const x = try f();' 0 "check-diff: OK"
+
 echo "── VERMELHO: tamanho de arquivo"
 new_repo; mkdir -p svc
 { for i in $(seq 1 800); do echo "var v$i = $i"; done; } > svc/big.zig; commit_feat

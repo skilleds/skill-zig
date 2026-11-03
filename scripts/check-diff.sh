@@ -87,6 +87,14 @@ scan 'catch\s*\(\s*\)\s*\{\s*\}|except\s*:\s*pass|catch\s*\{\s*\}' 'erro engolid
 scan '@ts-ignore|: any\b|interface\{\}' 'tipo silenciado (any/@ts-ignore/interface{}) (§37)'
 scan '\.(skip|only)\(|t\.Skip\(|xit\(|@Ignore' 'teste pulado/silenciado (§37)'
 
+# 2.1) §37 — macaquices específicas de Zig (anti-padroes.md 15/16/47): calar o compilador à força
+scan 'catch\s+unreachable|orelse\s+unreachable' 'catch/orelse unreachable em caminho de produção — trate o erro/null (§18/§37)'
+scan 'catch\s+@panic\(' 'catch @panic só pra calar o compilador — propague com try ou trate (§18/§37)'
+scan 'catch\s*\{\s*\}' 'catch {} engole o error union (§37)'
+scan '^\s*_\s*=\s*[A-Za-z_.]+\([^)]*\)\s*;' '_ = chamada(...) pode descartar um error union — use try/catch |err| (§37)'
+scan '@setRuntimeSafety\(\s*false\s*\)' 'suprimir checagem de segurança inline é VETADO sem ADR (§37)'
+scan 'std\.heap\.page_allocator' 'page_allocator direto — receba o alocador por parâmetro (memoria-concorrencia.md)'
+
 # 3) §39 — índice atualizado quando muda funcionalidade
 if (( ${#FILES[@]} > 0 )); then
   idx=$(git diff --name-only "$BASE"...HEAD 2>/dev/null | grep -E 'INDEX_(GLOBAL|FUNCTIONS)\.md' || true)
