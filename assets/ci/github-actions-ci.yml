@@ -38,7 +38,7 @@ jobs:
       - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
       # Zig é pre-1.0: fixe a versão EXATA (stack-versoes.md). Ajuste a versão pinada.
       - uses: mlugg/setup-zig@53fc45b17fe98b52f92ee5ea08ff48a85a3e7eb7 # v1.2.2
-        with: { version: 0.14.0 }
+        with: { version: 0.16.0 }   # = minimum_zig_version do build.zig.zon (stack-versoes.md); 0.17.0 saiu em 2026-10-01 — migrar só após reverificar as APIs da skill
       - name: Formatação canônica (trava)
         run: zig fmt --check .
       - name: Build (ReleaseSafe é o padrão de produção — memoria-concorrencia.md)

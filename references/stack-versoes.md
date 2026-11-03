@@ -5,6 +5,8 @@
 > exemplos de `references/iam.md` §3.1: `zig test` → *All 6 tests passed*, exit 0). O 0.14.x, que
 > este anexo usava como referência, está **duas minors atrás**.
 >
+> **Nota 2026-11-03:** `ziglang.org/download/index.json` já lista a **0.17.0** (2026-10-01) como estável; a skill segue verificada na 0.16.0 — migração exige reverificar as APIs de `iam.md`/`seguranca.md` (on-hold `[~]`).
+>
 > Parte da skill **schematize-zig**. Define a preferência de linguagem desta skill
 > dentro do **rol sancionado** da casa e — o ponto mais sensível do Zig — a **política
 > de versão do compilador**. Zig é **pre-1.0**: a versão exata é parte do contrato de
