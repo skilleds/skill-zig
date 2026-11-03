@@ -43,7 +43,7 @@
   - **Índice global da aplicação** (`INDEX_GLOBAL.md`) — o mapa macro: repos/serviços/bounded contexts e como se comunicam; a relação de **pastas top-level** de cada repo e a responsabilidade de cada uma; **o que cada coisa faz** e o ponto de entrada de **como se faz** (link pro fluxo/use-case/runbook). É o "mapa do território".
   - **Índice de microfunções** (`INDEX_FUNCTIONS.md`, por serviço) — o catálogo fino: cada função/módulo relevante → **o quê**, **onde é usada/prevista**, dependências e efeitos colaterais. Gerado a partir dos doc-comments `///` obrigatórios (§6).
 
-- Todo PR que **adiciona, remove ou move** funcionalidade atualiza o índice no mesmo PR. Índice desatualizado **trava o merge** (item da DoD, §35).
+- Todo PR que **adiciona, remove ou move** funcionalidade atualiza o índice no mesmo commit. Índice desatualizado **trava a promoção** (item da DoD, §35).
 
 - O índice é **fonte da verdade**: ao planejar uma feature, consulte-o primeiro pra não reimplementar o que já existe (anti-duplicação — liga com DRY semântico, §1).
 
