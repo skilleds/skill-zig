@@ -10,6 +10,9 @@ com versionamento [SemVer](https://semver.org/lang/pt-BR/).
 - `check-diff.sh` ganha regras de Zig (`catch unreachable`, `orelse unreachable`, `catch @panic`, `catch {}`, `_ = f()`, `@setRuntimeSafety(false)`, `page_allocator`) com vermelhos plantados.
 - `ops.md` §8 recorte Zig; `zig-ops` alinhado (22/23/24).
 
+### Corrigido
+- `scripts/simulated/run.py`: passa no ruff da casa sem afrouxar nada — saída via `emit()` (sem `print`), esquema da URL validado (só http/https, erro claro) com teste em `run.test.sh`, `noqa` inútil removido, `datetime.UTC`, `ruff format`; comportamento preservado.
+
 ## [0.6.1] — 2026-10-20
 ### Alterado
 - Bloco herdado `engineering/iam-desenho:invariantes` sincronizado: passkey padrão na fase 0 e matriz de acesso por rota.
