@@ -121,6 +121,8 @@ Nunca violados, nem "pra funcionar", nem "pra ir mais rápido". Lista completa e
 
 > Regra de bolso: se a justificativa começa com "só pra funcionar", "depois eu arrumo" ou "é mais rápido assim" e o resultado mexe em segredo, auth, memória, dado ou registro — é anti-padrão vetado. Pare e faça certo.
 
+- **Herda os pisos 22–29** da `schematize-engineering` (git como trava de conclusão, deploy só do git, ops é o gate da IA, sem agents inúteis, relatório 30 min/handoff 6 h, CI remoto só antes do hml, microserviço autônomo, build em dev/hml + higiene).
+
 ## Testes — o que conta como "verde de verdade"
 
 Detalhe em `references/testes.md` (o recorte Zig) — a **disciplina** de teste é da `schematize-qa`, e a segurança ofensiva da `schematize-pentest`.

@@ -2,6 +2,14 @@
 
 Todas as mudanças relevantes deste pacote, no formato [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/),
 com versionamento [SemVer](https://semver.org/lang/pt-BR/).
+## [Não lançado]
+### Alterado
+- Template de CI sem `pull_request`/`push` em branch: `workflow_dispatch` + `push: tags [hml-*, v*]`, `concurrency` com `cancel-in-progress` e passo `check-ci-triggers.sh` (piso 27); DoD/exemplos que diziam "CI verde no PR" agora dizem gate local + CI remoto só antes do hml.
+- Bloco "Herda os pisos 22–29" em `SKILL.md` e `assets/CLAUDE.md`.
+- `assets/ci`: `mlugg/setup-zig` 0.14.0 -> 0.16.0 (= stack-versoes.md). `ziglang.org/download/index.json` já lista 0.17.0 (2026-10-01): registrado em `stack-versoes.md` como `[~]` (migrar só após reverificar APIs).
+- `check-diff.sh` ganha regras de Zig (`catch unreachable`, `orelse unreachable`, `catch @panic`, `catch {}`, `_ = f()`, `@setRuntimeSafety(false)`, `page_allocator`) com vermelhos plantados.
+- `ops.md` §8 recorte Zig; `zig-ops` alinhado (22/23/24).
+
 ## [0.6.1] — 2026-10-20
 ### Alterado
 - Bloco herdado `engineering/iam-desenho:invariantes` sincronizado: passkey padrão na fase 0 e matriz de acesso por rota.
